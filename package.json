@@ -18,5 +18,19 @@
   "devDependencies": {},
   "peerDependencies": {
     "koishi": "^4.17.11"
+  },
+  "contributors": [
+    "KiraKiseki <kirakiseki@163.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NebulaeCraft/koishi-plugin-imageprovider.git"
+  },
+  "koishi": {
+    "preview": true,
+    "description": {
+      "en": "reply message with remote url image",
+      "zh": "用URL图片回复消息"
+    }
   }
 }
