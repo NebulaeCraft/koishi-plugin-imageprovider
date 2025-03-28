@@ -1,11 +1,31 @@
-import { Context, Schema } from 'koishi'
+import { Context, Schema, h } from 'koishi'
 
 export const name = 'imageprovider'
 
-export interface Config {}
+interface ImageProviderEntry {
+  message: string
+  imageUrl: string
+  availableGuilds: string[]
+}
 
-export const Config: Schema<Config> = Schema.object({})
+export interface Config {
+  entries: ImageProviderEntry[]
+}
 
-export function apply(ctx: Context) {
-  // write your plugin here
+export const Config: Schema<Config> = Schema.object({
+  entries: Schema.array(Schema.object({
+    message: Schema.string().required().description('触发消息内容'),
+    imageUrl: Schema.string().required().description('回复图片URL'),
+    availableGuilds: Schema.array(Schema.string()).default([]).description('生效群组列表'),
+  })).description('消息、回复图片、可用群组配置')
+})
+
+export function apply(ctx: Context, config: Config) {
+  for (const entry of config.entries) {
+    ctx.command(entry.message)
+      .action(({ session }) => {
+        if (entry.availableGuilds.length && !entry.availableGuilds.includes(session.guildId)) return
+        return h('img', { src: entry.imageUrl })
+      })
+  }
 }

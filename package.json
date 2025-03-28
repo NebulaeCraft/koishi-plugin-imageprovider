@@ -1,6 +1,6 @@
 {
   "name": "koishi-plugin-imageprovider",
-  "description": "1",
+  "description": "reply message with remote url image",
   "version": "0.0.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
